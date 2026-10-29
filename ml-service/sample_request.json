@@ -1,0 +1,20 @@
+{
+  "contamination": 0.13,
+  "employees": [
+    { "employee_id": 1, "avg_checkin_delay": -4, "late_count": 1, "leaves_taken": 1, "weekend_adjacent_leaves": 0, "overtime_hrs": 5.5, "absent_days": 0 },
+    { "employee_id": 2, "avg_checkin_delay": 2, "late_count": 2, "leaves_taken": 2, "weekend_adjacent_leaves": 1, "overtime_hrs": 8, "absent_days": 0 },
+    { "employee_id": 3, "avg_checkin_delay": -7, "late_count": 0, "leaves_taken": 1, "weekend_adjacent_leaves": 0, "overtime_hrs": 4, "absent_days": 0 },
+    { "employee_id": 4, "avg_checkin_delay": 5, "late_count": 2, "leaves_taken": 2, "weekend_adjacent_leaves": 1, "overtime_hrs": 10, "absent_days": 0 },
+    { "employee_id": 5, "avg_checkin_delay": -2, "late_count": 1, "leaves_taken": 3, "weekend_adjacent_leaves": 1, "overtime_hrs": 7, "absent_days": 0 },
+    { "employee_id": 6, "avg_checkin_delay": 1, "late_count": 2, "leaves_taken": 1, "weekend_adjacent_leaves": 0, "overtime_hrs": 6, "absent_days": 0 },
+    { "employee_id": 7, "avg_checkin_delay": -5, "late_count": 1, "leaves_taken": 2, "weekend_adjacent_leaves": 1, "overtime_hrs": 9, "absent_days": 0 },
+    { "employee_id": 8, "avg_checkin_delay": 3, "late_count": 2, "leaves_taken": 2, "weekend_adjacent_leaves": 0, "overtime_hrs": 7.5, "absent_days": 0 },
+    { "employee_id": 9, "avg_checkin_delay": -3, "late_count": 1, "leaves_taken": 1, "weekend_adjacent_leaves": 0, "overtime_hrs": 5, "absent_days": 0 },
+    { "employee_id": 10, "avg_checkin_delay": 4, "late_count": 2, "leaves_taken": 3, "weekend_adjacent_leaves": 1, "overtime_hrs": 11, "absent_days": 0 },
+    { "employee_id": 11, "avg_checkin_delay": -6, "late_count": 0, "leaves_taken": 1, "weekend_adjacent_leaves": 0, "overtime_hrs": 3.5, "absent_days": 0 },
+    { "employee_id": 12, "avg_checkin_delay": 0, "late_count": 1, "leaves_taken": 2, "weekend_adjacent_leaves": 1, "overtime_hrs": 8.5, "absent_days": 0 },
+    { "employee_id": 13, "avg_checkin_delay": 2, "late_count": 2, "leaves_taken": 1, "weekend_adjacent_leaves": 0, "overtime_hrs": 6.5, "absent_days": 0 },
+    { "employee_id": 14, "avg_checkin_delay": 58, "late_count": 18, "leaves_taken": 2, "weekend_adjacent_leaves": 1, "overtime_hrs": 12, "absent_days": 1 },
+    { "employee_id": 15, "avg_checkin_delay": -1, "late_count": 1, "leaves_taken": 9, "weekend_adjacent_leaves": 6, "overtime_hrs": 52, "absent_days": 5 }
+  ]
+}
