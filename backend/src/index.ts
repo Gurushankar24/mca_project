@@ -2,6 +2,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import authRoutes from './routes/auth.js';
+import employeeRoutes from './routes/employees.js';
 
 dotenv.config({ quiet: true });
 
@@ -11,6 +12,7 @@ const port = Number(process.env['PORT'] ?? 3000);
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
+app.use('/api', employeeRoutes);
 
 app.get('/api/health', (_request, response) => {
   response.json({ status: 'ok' });
