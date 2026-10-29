@@ -1,0 +1,23 @@
+<section class="page-heading">
+  <div><p class="eyebrow">EMPLOYEE DIRECTORY</p><h1>Employee profile</h1></div>
+  @if (auth.role() === 'hr' && employee(); as person) { <a mat-stroked-button [routerLink]="['/employees', person.id, 'edit']"><mat-icon>edit</mat-icon>Edit profile</a> }
+</section>
+
+@if (loading()) {
+  <div class="state"><mat-spinner diameter="36" /><p>Loading profile…</p></div>
+} @else if (error()) {
+  <section class="state error-state" role="alert"><mat-icon>lock_person</mat-icon><h2>Profile unavailable</h2><p>{{ error() }}</p>@if (auth.role() !== 'employee') { <a mat-button routerLink="/employees">Back to employees</a> }</section>
+} @else if (employee(); as person) {
+  <article class="profile-card">
+    <div class="profile-banner"><div class="avatar" aria-hidden="true">{{ person.name.charAt(0) }}</div><div><p class="eyebrow">{{ person.department }}</p><h2>{{ person.name }}</h2><p>{{ person.job_title }}</p></div></div>
+    <div class="profile-grid">
+      <div class="profile-field"><span>Email</span><strong>{{ person.email }}</strong></div>
+      <div class="profile-field"><span>Department</span><strong>{{ person.department }}</strong></div>
+      <div class="profile-field"><span>Job title</span><strong>{{ person.job_title }}</strong></div>
+      <div class="profile-field"><span>Manager</span><strong>{{ person.manager_name || 'No manager assigned' }}</strong></div>
+      <div class="profile-field"><span>Join date</span><strong>{{ person.join_date }}</strong></div>
+    </div>
+  </article>
+} @else {
+  <section class="state"><mat-icon>person_search</mat-icon><h2>No profile available</h2><p>There is no employee profile to show.</p></section>
+}

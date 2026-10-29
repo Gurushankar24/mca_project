@@ -1,0 +1,49 @@
+<section class="page-heading">
+  <div><p class="eyebrow">EMPLOYEE DIRECTORY</p><h1>{{ isEdit() ? 'Edit employee' : 'Add employee' }}</h1><p class="subtitle">Keep employee profile information up to date.</p></div>
+</section>
+
+@if (loading()) {
+  <div class="state"><mat-spinner diameter="36" /><p>Loading employee form…</p></div>
+} @else if (error() && !form.dirty) {
+  <div class="state error-state" role="alert"><mat-icon>error_outline</mat-icon><p>{{ error() }}</p><a mat-button routerLink="/employees">Back to employees</a></div>
+} @else {
+  <form class="form-card" [formGroup]="form" (ngSubmit)="save()" novalidate>
+    <div class="form-intro"><h2>Profile details</h2><p>Fields marked required must be completed.</p></div>
+    @if (error()) { <div class="form-error" role="alert">{{ error() }}</div> }
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Full name</mat-label><input matInput formControlName="name" autocomplete="name" />
+        @if (form.controls.name.hasError('required') && form.controls.name.touched) { <mat-error>Name is required.</mat-error> }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label><input matInput type="email" formControlName="email" autocomplete="email" />
+        @if (form.controls.email.hasError('required') && form.controls.email.touched) { <mat-error>Email is required.</mat-error> }
+        @if (form.controls.email.hasError('email') && form.controls.email.touched) { <mat-error>Enter a valid email address.</mat-error> }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="department">
+          @for (department of departments; track department) { <mat-option [value]="department">{{ department }}</mat-option> }
+        </mat-select>
+        @if (form.controls.department.hasError('required') && form.controls.department.touched) { <mat-error>Choose a department.</mat-error> }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Job title</mat-label><input matInput formControlName="job_title" />
+        @if (form.controls.job_title.hasError('required') && form.controls.job_title.touched) { <mat-error>Job title is required.</mat-error> }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Join date</mat-label><input matInput type="date" formControlName="join_date" />
+        @if (form.controls.join_date.hasError('required') && form.controls.join_date.touched) { <mat-error>Join date is required.</mat-error> }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Manager</mat-label>
+        <mat-select formControlName="manager_id">
+          <mat-option [value]="null">No manager</mat-option>
+          @for (manager of managers(); track manager.id) { <mat-option [value]="manager.id">{{ manager.name }} · {{ manager.department }}</mat-option> }
+        </mat-select>
+        <mat-hint>{{ managers().length ? 'Choose the employee’s direct manager.' : 'No managers are available yet; this employee can be assigned later.' }}</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="form-actions"><a mat-button routerLink="/employees">Cancel</a><button mat-flat-button color="primary" type="submit" [disabled]="saving()">{{ saving() ? 'Saving…' : (isEdit() ? 'Save changes' : 'Create employee') }}</button></div>
+  </form>
+}

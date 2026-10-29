@@ -1,0 +1,41 @@
+<section class="page-heading">
+  <div><p class="eyebrow">PEOPLE OPERATIONS</p><h1>Team assignment</h1><p class="subtitle">Choose a manager and assign several employees in one step.</p></div>
+</section>
+
+@if (loading()) {
+  <div class="state"><mat-spinner diameter="36" /><p>Loading team assignment…</p></div>
+} @else if (error() && managers().length === 0) {
+  <div class="state error-state" role="alert"><mat-icon>error_outline</mat-icon><p>{{ error() }}</p><button mat-stroked-button type="button" (click)="loadData()">Try again</button></div>
+} @else if (managers().length === 0) {
+  <div class="state"><mat-icon>groups</mat-icon><h2>No managers available</h2><p>Add a manager account before assigning a team.</p></div>
+} @else {
+  <section class="assignment-card">
+    <div class="selection-header">
+      <mat-form-field appearance="outline" class="manager-select">
+        <mat-label>Manager</mat-label>
+        <mat-select [ngModel]="selectedManagerId()" (ngModelChange)="selectedManagerId.set($event)">
+          @for (manager of managers(); track manager.id) { <mat-option [value]="manager.id">{{ manager.name }} · {{ manager.department }}</mat-option> }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Search employees</mat-label><input matInput [ngModel]="search()" (ngModelChange)="search.set($event)" />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    @if (error()) { <div class="form-error" role="alert">{{ error() }}</div> }
+    <div class="list-heading"><div><h2>Select employees</h2><p>{{ selectedIds().length }} selected</p></div></div>
+    @if (visibleEmployees().length === 0) {
+      <div class="empty-list"><mat-icon>person_search</mat-icon><p>{{ employees().length ? 'No employees match your search.' : 'There are no employees to assign.' }}</p></div>
+    } @else {
+      <div class="employee-options">
+        @for (employee of visibleEmployees(); track employee.id) {
+          <mat-checkbox [checked]="isSelected(employee.id)" (change)="toggleEmployee(employee.id, $event.checked)">
+            <span class="option-name">{{ employee.name }}</span>
+            <span class="option-meta">{{ employee.department }} · {{ employee.job_title }}@if (employee.manager_name) { · Currently: {{ employee.manager_name }} }</span>
+          </mat-checkbox>
+        }
+      </div>
+    }
+    <div class="form-actions"><button mat-flat-button color="primary" type="button" [disabled]="saving() || selectedIds().length === 0" (click)="assign()"><mat-icon>groups</mat-icon>{{ saving() ? 'Assigning…' : 'Assign selected' }}</button></div>
+  </section>
+}

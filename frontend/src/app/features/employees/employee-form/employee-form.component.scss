@@ -1,0 +1,14 @@
+:host { display: block; }
+.page-heading { margin-bottom: 1.5rem; }
+h1 { margin: 0; color: #172b4d; font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -.04em; }
+.eyebrow { margin: 0 0 .3rem; color: #52657f; font-size: .72rem; font-weight: 700; letter-spacing: .12em; }
+.subtitle, .form-intro p { margin: .45rem 0 0; color: #617087; }
+.form-card { max-width: 58rem; padding: clamp(1.25rem, 4vw, 2.25rem); border: 1px solid #e1e7ef; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px #1831530a; }
+.form-intro { margin-bottom: 1.5rem; }
+.form-intro h2 { margin: 0; color: #243751; font-size: 1.15rem; }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.25rem; }
+.form-actions { display: flex; justify-content: flex-end; gap: .75rem; padding-top: .5rem; }
+.form-error { margin-bottom: 1rem; padding: .8rem 1rem; border-radius: 8px; background: #fff0f0; color: #922b32; }
+.state { display: flex; min-height: 240px; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; color: #53647d; text-align: center; }
+.error-state { padding: 2rem; border: 1px solid #f1d1d3; border-radius: 14px; background: #fffafa; }
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
