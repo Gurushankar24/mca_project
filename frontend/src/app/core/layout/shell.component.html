@@ -1,0 +1,27 @@
+<mat-toolbar class="topbar">
+  <span class="app-name">Employee Management Dashboard</span>
+  <span class="spacer"></span>
+  @if (auth.currentUser(); as user) {
+    <span class="user-name">{{ user.name }}</span>
+    <span class="role-chip">{{ roleLabel(user.role) }}</span>
+    <button mat-button type="button" (click)="logout()">Log out</button>
+  }
+</mat-toolbar>
+
+<mat-sidenav-container class="layout">
+  <mat-sidenav mode="side" opened aria-label="Main navigation">
+    <nav mat-nav-list>
+      @for (item of navigation(); track item.path) {
+        <a mat-list-item [routerLink]="item.path" routerLinkActive="active-link">
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main class="page-content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
