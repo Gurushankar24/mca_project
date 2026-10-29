@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { firstValueFrom } from 'rxjs';
 
 import { AuthService } from './core/auth.service';
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    provideCharts(withDefaultRegisterables()),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAppInitializer(() => firstValueFrom(inject(AuthService).restoreSession())),
   ]

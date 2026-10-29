@@ -1,0 +1,22 @@
+<section class="page-heading"><div><p class="eyebrow">PEOPLE ANALYTICS</p><h1>Wellbeing scores</h1><p class="subtitle">A rule-based score from attendance, performance, workload and leave.</p></div></section>
+
+<section class="filters" aria-label="Wellbeing filters">
+  <mat-form-field appearance="outline"><mat-label>Department</mat-label><mat-select [value]="department()" (selectionChange)="department.set($event.value)"><mat-option value="">All departments</mat-option>@for (item of departments; track item) { <mat-option [value]="item">{{ item }}</mat-option> }</mat-select></mat-form-field>
+  <mat-form-field appearance="outline"><mat-label>Band</mat-label><mat-select [value]="bandFilter()" (selectionChange)="bandFilter.set($event.value)"><mat-option value="">All bands</mat-option><mat-option value="green">Green</mat-option><mat-option value="amber">Amber</mat-option><mat-option value="red">Red</mat-option></mat-select></mat-form-field>
+</section>
+
+<section class="content-card" aria-live="polite">
+  @if (loading()) { <div class="state"><mat-spinner diameter="36" /><p>Loading wellbeing scores…</p></div> }
+  @else if (error()) { <div class="state error-state" role="alert"><mat-icon>error_outline</mat-icon><p>{{ error() }}</p><button mat-stroked-button type="button" (click)="load()">Try again</button></div> }
+  @else if (filteredRows().length === 0) { <div class="state"><mat-icon>analytics</mat-icon><h2>No scores found</h2><p>There are no wellbeing scores for the selected filters.</p></div> }
+  @else {
+    <div class="table-scroll"><table mat-table [dataSource]="filteredRows()" class="wellbeing-table">
+      <ng-container matColumnDef="name"><th mat-header-cell *matHeaderCellDef><button class="sort-button" (click)="sortBy('name')">Employee</button></th><td mat-cell *matCellDef="let row"><a [routerLink]="['/employees', row.employee_id]">{{ row.name }}</a></td></ng-container>
+      <ng-container matColumnDef="department"><th mat-header-cell *matHeaderCellDef><button class="sort-button" (click)="sortBy('department')">Department</button></th><td mat-cell *matCellDef="let row">{{ row.department }}</td></ng-container>
+      <ng-container matColumnDef="score"><th mat-header-cell *matHeaderCellDef><button class="sort-button" (click)="sortBy('score')">Score</button></th><td mat-cell *matCellDef="let row"><strong>{{ row.score }}</strong> / 100</td></ng-container>
+      <ng-container matColumnDef="band"><th mat-header-cell *matHeaderCellDef><button class="sort-button" (click)="sortBy('band')">Band</button></th><td mat-cell *matCellDef="let row"><span class="band-chip" [class]="'band-chip ' + row.band"><span class="band-dot" aria-hidden="true"></span>{{ bandLabel(row.band) }}</span></td></ng-container>
+      <ng-container matColumnDef="weakest"><th mat-header-cell *matHeaderCellDef><button class="sort-button" (click)="sortBy('weakest_factor')">Weakest factor</button></th><td mat-cell *matCellDef="let row">{{ factorLabel(row.weakest_factor) }}</td></ng-container>
+      <tr mat-header-row *matHeaderRowDef="['name','department','score','band','weakest']"></tr><tr mat-row *matRowDef="let row; columns: ['name','department','score','band','weakest']"></tr>
+    </table></div>
+  }
+</section>

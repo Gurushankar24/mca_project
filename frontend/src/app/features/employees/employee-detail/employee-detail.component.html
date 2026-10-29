@@ -18,6 +18,20 @@
       <div class="profile-field"><span>Join date</span><strong>{{ person.join_date }}</strong></div>
     </div>
   </article>
+  <section class="wellbeing-card" aria-live="polite">
+    <div class="section-heading"><div><p class="eyebrow">WELLBEING</p><h2>Score breakdown</h2></div></div>
+    @if (wellbeingLoading()) { <div class="state"><mat-spinner diameter="32" /><p>Loading wellbeing score…</p></div> }
+    @else if (wellbeingError()) { <div class="state" role="alert"><mat-icon>error_outline</mat-icon><p>{{ wellbeingError() }}</p><button mat-stroked-button type="button" (click)="loadEmployee()">Try again</button></div> }
+    @else if (wellbeing(); as score) {
+      <div class="score-summary"><strong class="score-number">{{ score.score }}<span>/100</span></strong><span class="band-chip" [class]="'band-chip ' + score.band"><span class="band-dot" aria-hidden="true"></span>{{ score.band | titlecase }} band</span><p class="weakest-callout">Weakest factor: <strong>{{ score.weakest_factor | titlecase }}</strong></p></div>
+      <p class="formula-caption">This score is calculated using a rule-based formula.</p>
+      <div class="chart-wrap"><canvas baseChart [type]="'bar'" [data]="chartData()" [options]="chartOptions" aria-label="Horizontal bar chart of wellbeing factor values"></canvas></div>
+      <div class="breakdown-table-wrap"><table class="breakdown-table"><thead><tr><th>Factor</th><th>Value</th><th>Weight</th><th>Contribution</th></tr></thead><tbody>
+        @for (factor of factorRows; track factor.key) { <tr><th scope="row">{{ factor.label }}</th><td>{{ score.breakdown[factor.key].value | number:'1.2-2' }}</td><td>{{ score.breakdown[factor.key].weight | percent:'1.0-0' }}</td><td>{{ score.breakdown[factor.key].contribution | number:'1.1-2' }}</td></tr> }
+      </tbody></table></div>
+      <p class="score-date">Window: {{ score.window_days }} days ending {{ score.as_of_date }}</p>
+    } @else { <div class="state"><mat-icon>analytics</mat-icon><p>No wellbeing score is available.</p></div> }
+  </section>
 } @else {
   <section class="state"><mat-icon>person_search</mat-icon><h2>No profile available</h2><p>There is no employee profile to show.</p></section>
 }

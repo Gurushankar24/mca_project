@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts",
-    "seed": "tsx src/scripts/seed.ts"
+    "seed": "tsx src/scripts/seed.ts",
+    "test": "node --import tsx --test src/services/wellbeing.test.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

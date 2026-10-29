@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import authRoutes from './routes/auth.js';
 import employeeRoutes from './routes/employees.js';
+import wellbeingRoutes from './routes/wellbeing.js';
 
 dotenv.config({ quiet: true });
 
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api', employeeRoutes);
+app.use('/api/wellbeing', wellbeingRoutes);
 
 app.get('/api/health', (_request, response) => {
   response.json({ status: 'ok' });
