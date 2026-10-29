@@ -301,7 +301,7 @@ Use a **seeded pseudo-random generator** (for example a small mulberry32 functio
 - absent (unplanned): 1% of days.
 - ratings for the last two quarters (e.g. Q2-2026 and Q3-2026): mostly 3 to 5.
 
-**Injected anomalies (exactly 5, all among the 40 non-manager employees, in different departments, all patterns active within the LAST 45 days only), stored in `ground_truth`:**
+**Injected anomalies (exactly 5, all among the 40 non-manager employees, spread across the 4 departments, with exactly one department holding two; all patterns active within the LAST 45 days only), stored in `ground_truth`:**
 
 | Type | Pattern |
 |---|---|
