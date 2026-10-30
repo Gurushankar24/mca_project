@@ -1,0 +1,73 @@
+<header class="heading">
+  <p class="eyebrow">TEAM OVERVIEW</p>
+  <h1>Dashboard</h1>
+  <p class="subtitle">Wellbeing and attendance patterns for the employees in your view.</p>
+</header>
+
+@if (loading()) {
+  <div class="state" role="status"><mat-spinner diameter="36" /><p>Loading dashboard…</p></div>
+} @else if (error()) {
+  <div class="state error" role="alert">
+    <mat-icon>error_outline</mat-icon><h2>Dashboard unavailable</h2><p>{{ error() }}</p>
+    <button mat-stroked-button type="button" (click)="load()">Try again</button>
+  </div>
+} @else if (summary(); as data) {
+  @if (data.total_employees === 0) {
+    <div class="state"><mat-icon>groups</mat-icon><h2>No employee data yet</h2><p>There are no active wellbeing results in your view.</p></div>
+  } @else {
+    <section class="metric-grid" aria-label="Summary metrics">
+      <article class="metric-card"><span class="metric-label">Total employees</span><strong>{{ data.total_employees }}</strong><span class="metric-foot">Active scored employees</span></article>
+      <article class="metric-card"><span class="metric-label">Average wellbeing score</span><strong>{{ data.avg_score }}<small> / 100</small></strong><span class="metric-foot">Across visible employees</span></article>
+      <article class="metric-card"><span class="metric-label">Anomaly count</span>
+        @if (data.ml_unavailable) { <strong class="unavailable-value">Unavailable</strong><span class="metric-foot">ML service is offline</span> }
+        @else { <strong>{{ data.anomaly_count }}</strong><span class="metric-foot">Flags for human review</span> }
+      </article>
+    </section>
+
+    @if (data.ml_unavailable) {
+      <section class="ml-note" role="status"><strong>Anomaly detection is temporarily unavailable.</strong> Wellbeing scores are current; start the Flask service to load anomaly results.</section>
+    }
+
+    <section class="overview-grid">
+      <article class="panel band-panel">
+        <div class="panel-heading"><div><p class="eyebrow">WELLBEING</p><h2>Score bands</h2></div><a mat-button routerLink="/wellbeing">View wellbeing</a></div>
+        <div class="chart-wrap" role="img" aria-label="Donut chart showing wellbeing band counts">
+          <canvas baseChart [type]="doughnutType" [data]="chartData()" [options]="doughnutOptions"></canvas>
+        </div>
+        <ul class="band-counts">
+          <li><span class="band-key green"></span><span>Green</span><strong>{{ data.band_counts.green }}</strong></li>
+          <li><span class="band-key amber"></span><span>Amber</span><strong>{{ data.band_counts.amber }}</strong></li>
+          <li><span class="band-key red"></span><span>Red</span><strong>{{ data.band_counts.red }}</strong></li>
+        </ul>
+      </article>
+
+      <article class="panel anomaly-panel">
+        <div class="panel-heading"><div><p class="eyebrow">ATTENDANCE PATTERNS</p><h2>Top anomalies</h2></div><a mat-button routerLink="/anomalies">View alerts</a></div>
+        <p class="disclaimer"><strong>For human review:</strong> A flag is a prompt for a conversation, not evidence of wrongdoing.</p>
+        @if (data.ml_unavailable) {
+          <div class="inline-empty"><mat-icon>cloud_off</mat-icon><p>Anomaly results will appear when the ML service is available.</p></div>
+        } @else if (data.top_anomalies.length === 0) {
+          <div class="inline-empty"><mat-icon>check_circle_outline</mat-icon><p>No anomalies flagged for this view.</p></div>
+        } @else {
+          <ol class="anomaly-list">
+            @for (anomaly of data.top_anomalies; track anomaly.employee_id; let rank = $index) {
+              <li class="anomaly-row">
+                <span class="rank">{{ rank + 1 }}</span>
+                <div class="anomaly-person"><strong>{{ anomaly.name }}</strong><span>{{ anomaly.department }} · Employee #{{ anomaly.employee_id }}</span>
+                  @if (anomaly.reasons.length) { <small>{{ anomaly.reasons[0].text }}</small> }
+                </div>
+                <span class="severity">{{ anomaly.severity | number:'1.2-2' }}</span>
+              </li>
+            }
+          </ol>
+        }
+      </article>
+    </section>
+
+    <nav class="quick-links" aria-label="Dashboard quick links">
+      <a mat-stroked-button routerLink="/employees"><mat-icon>groups</mat-icon> Employees</a>
+      <a mat-stroked-button routerLink="/wellbeing"><mat-icon>favorite_border</mat-icon> Wellbeing scores</a>
+      <a mat-stroked-button routerLink="/anomalies"><mat-icon>insights</mat-icon> Anomaly alerts</a>
+    </nav>
+  }
+}

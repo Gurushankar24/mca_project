@@ -5,6 +5,7 @@ import authRoutes from './routes/auth.js';
 import employeeRoutes from './routes/employees.js';
 import wellbeingRoutes from './routes/wellbeing.js';
 import anomalyRoutes from './routes/anomalies.js';
+import dashboardRoutes from './routes/dashboard.js';
 
 dotenv.config({ quiet: true });
 
@@ -17,6 +18,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api', employeeRoutes);
 app.use('/api/wellbeing', wellbeingRoutes);
 app.use('/api/anomalies', anomalyRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 app.get('/api/health', (_request, response) => {
   response.json({ status: 'ok' });
