@@ -36,7 +36,7 @@ h1 { margin: 0; color: #172b4d; font-size: clamp(1.8rem, 4vw, 2.4rem); letter-sp
 .inline-empty mat-icon { color: #60748e; }
 .ml-note { margin-top: 1rem; padding: .8rem 1rem; border: 1px solid #e7c974; border-radius: 10px; background: #fff8e7; color: #513d12; }
 .quick-links { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
-.quick-links mat-icon { margin-right: .35rem; }
+.quick-link-icon { width: 1.2rem; height: 1.2rem; margin-right: .35rem; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; vertical-align: middle; }
 .state { display: flex; min-height: 240px; flex-direction: column; align-items: center; justify-content: center; gap: .55rem; padding: 2rem; color: #53647d; text-align: center; }
 .state h2, .state p { margin: 0; } .state mat-icon { width: 34px; height: 34px; font-size: 34px; }
 .error { color: #8a1f2a; }

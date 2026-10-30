@@ -8,6 +8,8 @@
   position: relative;
   z-index: 2;
   gap: 1rem;
+  background: #17365c;
+  color: #fff;
 }
 
 .app-name {
@@ -21,6 +23,18 @@
 
 .user-name {
   font-size: 0.95rem;
+}
+
+.avatar {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 1px solid #ffffff70;
+  border-radius: 50%;
+  background: #ffffff20;
+  font-size: .78rem;
+  font-weight: 700;
 }
 
 .role-chip {
@@ -37,11 +51,31 @@
 
 mat-sidenav {
   width: 15rem;
-  padding-top: 0.75rem;
+  padding: 1rem .75rem;
+  border-right: 1px solid #e2e8f0;
+  background: #f7f9fc;
 }
 
-.active-link {
+.side-nav a[mat-list-item] {
+  margin: .25rem 0;
+  border-radius: 9px;
+  color: #40536c;
+  font-weight: 600;
+}
+
+.side-nav a[mat-list-item]:hover {
+  background: #e9eef6;
+}
+
+.side-nav a.active-link {
+  background: #dce8f7;
+  color: #173f70;
   font-weight: 700;
+}
+
+.side-nav a.active-link::before {
+  width: 4px;
+  background: #2463a6;
 }
 
 .page-content {

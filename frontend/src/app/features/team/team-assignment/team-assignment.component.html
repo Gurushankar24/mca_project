@@ -22,7 +22,7 @@
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
-    @if (error()) { <div class="form-error" role="alert">{{ error() }}</div> }
+    @if (error()) { <div class="form-error" role="alert">{{ error() }} <button mat-stroked-button type="button" (click)="loadData()">Reload data</button></div> }
     <div class="list-heading"><div><h2>Select employees</h2><p>{{ selectedIds().length }} selected</p></div></div>
     @if (visibleEmployees().length === 0) {
       <div class="empty-list"><mat-icon>person_search</mat-icon><p>{{ employees().length ? 'No employees match your search.' : 'There are no employees to assign.' }}</p></div>

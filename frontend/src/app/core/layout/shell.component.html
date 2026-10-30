@@ -2,6 +2,7 @@
   <span class="app-name">Employee Management Dashboard</span>
   <span class="spacer"></span>
   @if (auth.currentUser(); as user) {
+    <span class="avatar" aria-label="User initials">{{ userInitials(user.name) }}</span>
     <span class="user-name">{{ user.name }}</span>
     <span class="role-chip">{{ roleLabel(user.role) }}</span>
     <button mat-button type="button" (click)="logout()">Log out</button>
@@ -10,9 +11,9 @@
 
 <mat-sidenav-container class="layout">
   <mat-sidenav mode="side" opened aria-label="Main navigation">
-    <nav mat-nav-list>
+    <nav mat-nav-list aria-label="Main navigation" class="side-nav">
       @for (item of navigation(); track item.path) {
-        <a mat-list-item [routerLink]="item.path" routerLinkActive="active-link">
+        <a mat-list-item [routerLink]="item.path" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
           {{ item.label }}
         </a>
       }

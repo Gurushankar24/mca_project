@@ -1,4 +1,29 @@
-body {
-  font-family: Arial, sans-serif;
+html, body {
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
+
+button, input, textarea, select, .mat-mdc-typography, .mat-mdc-button,
+.mat-mdc-raised-button, .mat-mdc-unelevated-button, .mat-mdc-outlined-button,
+.mat-mdc-form-field, .mat-mdc-list-item, .mat-toolbar {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body, body *:not(mat-icon):not(.mat-icon) {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+.side-nav a.mat-mdc-list-item {
+  display: flex;
+  align-items: center;
+  margin: .25rem 0;
+  border-radius: 9px;
+  color: #40536c;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.side-nav a.mat-mdc-list-item:hover { background: #e9eef6; }
+.side-nav a.mat-mdc-list-item.active-link { background: #dce8f7; color: #173f70; font-weight: 700; }
+.topbar .mat-mdc-button { color: #fff !important; }
